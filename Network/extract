@@ -1,0 +1,48 @@
+#
+#	Command prompt reference
+# 		https://ss64.com/nt/
+#
+
+
+netsh wlan show profile "<profile-name>" key=clear
+
+netsh wlan show profiles | findstr /c:" :"
+#	 /c - Literal string
+
+
+#------------------------------------------------------
+set | findstr /c:FOO /c:FEE /c:ENT=
+
+
+
+#------------------------------------------------------
+# 1st iter
+for /f "tokens=2 delims=:" %L in  ('netsh wlan show profiles ^| findstr "All" ') DO (echo %L)
+
+
+# 2nd iter
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(if "%D"=="" (echo "%C") else (echo "%C %D"))
+
+# 3rd iter
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(if "%D"=="" (netsh wlan show profiles "%C" key=clear | findstr /c:"Key Content") else (netsh wlan show profiles "%C %D" key=clear | findstr /c:"Key Content"))
+
+# final iter
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(echo. & if "%D"=="" (echo [%C] & netsh wlan show profiles "%C" key=clear | findstr /c:"Key Content") else ( echo [%C %D] &netsh wlan show profiles "%C %D" key=clear | findstr /c:"Key Content"))
+
+
+
+
+#-------------------------------------------------------------------------------
+# scratch 
+#-------------------------------------------------------------------------------
+
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(echo "%C %D") 
+
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(if "%D"==" " (echo "%C") else (echo "%C %D"))
+
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(if "%D"=="" (echo "%C") else (echo  "%C %D") | )
+
+
+
+for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(if "%D"=="" ( echo [%C %D] netsh wlan show profiles "%C %D" key=clear | findstr /c:"Key Content"))
+
