@@ -30,6 +30,8 @@ for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(if
 for /f "tokens=5*" %C in  ('netsh wlan show profiles ^| findstr "All" ') DO @(echo. & if "%D"=="" (echo [%C] & netsh wlan show profiles "%C" key=clear | findstr /c:"Key Content") else ( echo [%C %D] &netsh wlan show profiles "%C %D" key=clear | findstr /c:"Key Content"))
 
 
+# export to flat files 
+netsh wlan show profile folder=C:\ key=clear
 
 
 #-------------------------------------------------------------------------------
