@@ -2,10 +2,14 @@
 
 ### Source
 https://github.com/rthalley/dnspython  
+
+`pip install dnspython`  
+
 <br>  
 
 ### Website
 https://www.dnspython.org/  
+
 <br>  
 
 ### Manual
