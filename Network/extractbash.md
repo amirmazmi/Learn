@@ -4,5 +4,14 @@
 <br><br>
 
 #### If you don’t know the network name, use the following command.
-```sudo grep psk= /etc/NetworkManager/system-connections/*```
+```
+# list all
+sudo grep psk= /etc/NetworkManager/system-connections/*
+
+# split into columns
+sudo grep psk= /etc/NetworkManager/system-connections/* | sed 's/\//  /g'
+
+# just get the output 
+sudo grep psk= /etc/NetworkManager/system-connections/* | cut -d/ -f5 | sed 's/:psk=/\n\t/g'
+```
 <br><br>
